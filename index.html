@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Date?</title>
+
+  <!-- Google Font (FIXED correctly) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: radial-gradient(circle at top, #ffe6f0, #fff0f6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    .card {
+      background: #ffffffcc;
+      padding: 40px 50px;
+      border-radius: 28px;
+      box-shadow: 0 20px 40px rgba(255, 105, 180, 0.3);
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      color: #d6336c;
+      font-size: 2rem;
+      margin-bottom: 40px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      position: relative;
+    }
+
+    .btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  position: relative;
+}
+
+#yesBtn {
+  background: #ff6b9a;
+  color: white;
+  padding: 14px 32px;
+  font-size: 1rem;
+  border-radius: 30px;
+}
+
+#noBtn {
+  background: #ffe0ec;
+  color: #d6336c;
+
+  /* ✅ smaller + balanced */
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  border-radius: 22px;
+
+  /* ✅ initially behaves like normal button */
+  position: relative;
+}
+
+
+    #yesBtn:hover {
+      transform: scale(1.1);
+    }
+
+
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(100vh);
+      }
+      to {
+        transform: translateY(-10vh);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="card">
+    <h1>Want to go for Movie Date ? 🍸🍹</h1>
+
+    <div class="btn-row">
+      <button id="yesBtn">Yes </button>
+      <button id="noBtn">No </button>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const card = document.getElementById("card");
+
+    noBtn.addEventListener("mouseenter", () => {
+      const padding = 20;
+
+      const cardRect = card.getBoundingClientRect();
+
+      let x, y;
+
+      // ✅ Keep NO button away from question / card
+      do {
+        x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
+        y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
+      } while (
+        x > cardRect.left - 100 &&
+        x < cardRect.right &&
+        y > cardRect.top - 100 &&
+        y < cardRect.bottom
+      );
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+      noBtn.style.position = "fixed";
+    });
+
+    document.getElementById("yesBtn").onclick = () => {
+      const to = "karan288083@gmail.com";
+      const subject = encodeURIComponent("Agree");
+      const body = encodeURIComponent("Let's Go");
+
+      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+    };
+
+    // Floating hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+
+    setInterval(createHeart, 600);
+  </script>
+
+</body>
+</html>
